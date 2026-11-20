@@ -41,6 +41,10 @@ describe("crop page", () => {
     await expect(CropPage(crop("nope"))).rejects.toThrow("NOT_FOUND");
     expect(generateStaticParams()).toEqual([{ id: "okra" }, { id: "basil" }, { id: "morning-glory" }]);
     expect((await generateMetadata(crop("okra"))).title).toBe("Okra | Field / Book");
+    const og = (await generateMetadata(crop("okra"))).openGraph as { url?: string; title?: string; description?: string };
+    expect(og.url).toBe("/crops/okra");
+    expect(og.title).toBe("Okra | Field / Book");
+    expect(og.description).toContain("Six-week visit plan");
     expect(await generateMetadata(crop("nope"))).toEqual({});
   });
 });
