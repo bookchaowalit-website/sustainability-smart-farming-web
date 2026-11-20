@@ -40,3 +40,8 @@ A small grower, or a portfolio visitor, who wants one crop's window and one next
 ## Boundaries
 
 - Browser-only. Crop timings, water notes and tasks are illustrative examples.
+
+## Known limits
+
+- The metadata test reads `NEXT_PUBLIC_SITE_URL` at import, so it checks the default domain only when the variable is
+  unset (CI); a custom value is not covered.
