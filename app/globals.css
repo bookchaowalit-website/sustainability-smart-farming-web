@@ -2,7 +2,6 @@
 @import "./reader-shell.css";
 
 html, body { margin: 0; background: var(--rs-bg); }
-html { scroll-padding-top: 64px; }
 
 /* The six-week plan: one stage per line, the stage name in bold. */
 .fb-plan li { margin: 10px 0; }
