@@ -19,10 +19,10 @@ flowchart TD
   PAGER --> CROP
   V --> OLD["/more-projects"]
   OLD --> RED["next.config redirects: 308 ไป bookchaowalit.com"]
-  V --> SEO["/robots.txt และ /sitemap.xml สร้างจาก crops + SITE_URL"]
-  HOME -.-> SENTRY["error เท่านั้นส่ง Sentry เมื่อมี NEXT_PUBLIC_SENTRY_DSN, scrubEvent ตัดข้อมูลส่วนบุคคล"]
-  CI["push/PR เข้า main: CI กลาง + security scan"] --> DEPLOY["Vercel Git deploy ของ main [ต้องยืนยัน]"]
-  DEPLOY --> HOME
+  V --> SEO["/robots.txt: กฎคงที่ + SITE_URL (ไม่อ่าน crops); /sitemap.xml: SITE_URL + URL รายพืชจาก crops"]
+  HOME -.-> SENTRY["error เท่านั้นส่ง Sentry เมื่อมี NEXT_PUBLIC_SENTRY_DSN, scrubEvent ลบ request/user/breadcrumbs/extra, ตัด query/fragment ในข้อความ error และ URL (ข้อมูลอื่นในข้อความ error ยังส่งได้)"]
+  CI["push/PR เข้า main: CI กลาง + security scan (ตรวจอย่างเดียว ไม่มี job deploy)"]
+  DEPLOY["push เข้า main: Vercel Git integration deploy (ไม่ทราบว่ารอ CI หรือไม่) [ต้องยืนยัน]"] --> HOME
 ```
 
 Sources: `app/page.tsx`, `app/crops/[id]/page.tsx`, `components/fieldbook-views.tsx`, `lib/farming.ts`, `app/sitemap.ts`, `app/robots.ts`, `lib/site.ts`, `next.config.ts`, `lib/sentry.ts`, `instrumentation.ts`, `.github/workflows/ci.yml`
